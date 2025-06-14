@@ -1,0 +1,105 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Sanal Ortamlar
+.venv/
+venv/
+env/
+.env
+
+# Paketleyici ve Kurulum Dosyaları
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.whl
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# IPython Notebook
+.ipynb_checkpoints
+
+# PyInstaller
+*.manifest
+*.spec
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre
+.pyre/
+
+# PEP 582; __pypackages__ directory
+__pypackages__/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath
+.sage/
+
+# Spyder
+.spyderproject
+.spyproject
+
+# Thonny
+.thonny/
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+*.iml
+
+# Eclipse
+.project
+.pydevproject
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# JupyterLab
+.jupyter/
+
+# Numba
+*.numba_environment.txt
+
+# pyenv
+.python-version
+
+# dotenv
+.env
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Log dosyaları
+*.log
+
+# Geçici dosyalar
+*.tmp
+*.swp

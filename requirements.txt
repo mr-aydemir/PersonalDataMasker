@@ -1,0 +1,5 @@
+# Core NLP library
+spacy>=3.4.2,<3.5.0
+
+# İleride IBAN gibi standart numaraları doğrulamak/işlemek için gerekebilir
+# stdnum
