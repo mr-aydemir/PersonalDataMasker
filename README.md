@@ -28,16 +28,13 @@ Bu proje, Türkçe metinlerde bulunan kişisel ve hassas verileri (isimler, IBAN
     Bu komut, `spacy`, `spacy-transformers`, `torch`, `fastapi`, `uvicorn` gibi gerekli tüm kütüphaneleri kuracaktır.
 
 3.  **spaCy Türkçe Modelini İndirin (`tr_core_news_trf`):**
-    Proje, en iyi sonuçlar için `tr_core_news_trf` modelini kullanır. Modeli indirmenin iki yolu vardır:
-    *   **spaCy CLI ile (Önerilen):**
-        ```bash
-        python -m spacy download tr_core_news_trf
-        ```
-    *   **`.whl` Dosyası ile (Alternatif):**
-        Modeli [Hugging Face (turkish-nlp-suite)](https://huggingface.co/turkish-nlp-suite/tr_core_news_trf/blob/main/tr_core_news_trf-1.0-py3-none-any.whl) adresinden `.whl` dosyası olarak indirip kurabilirsiniz:
-        ```bash
-        pip install /path/to/downloaded/tr_core_news_trf-1.0-py3-none-any.whl
-        ```
+    Proje, en iyi sonuçlar için `tr_core_news_trf` Transformer tabanlı Türkçe spaCy modelini kullanır. Bu ve benzeri Türkçe NLP modelleri, genellikle [turkish-nlp-suite tarafından Hugging Face üzerinde](https://huggingface.co/turkish-nlp-suite) yayınlanmaktadır.
+    `tr_core_news_trf` modelini kurmanın en doğrudan yolu, `.whl` dosyasını `pip` ile doğrudan URL üzerinden yüklemektir:
+
+    ```bash
+    pip install https://huggingface.co/turkish-nlp-suite/tr_core_news_trf/resolve/main/tr_core_news_trf-1.0-py3-none-any.whl
+    ```
+    Bu komut, `tr_core_news_trf` modelini indirip Python ortamınıza kuracaktır.
 
 ## Kullanım
 
