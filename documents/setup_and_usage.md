@@ -44,24 +44,13 @@ Bu belge, Türkçe Kişisel Veri Maskeleyici projesinin nasıl kurulacağını v
 
 4.  **spaCy Türkçe Modelini İndirin:**
     Proje, çeşitli denemeler sonucunda en iyi performansı veren `tr_core_news_trf` adlı Transformer tabanlı bir Türkçe spaCy modeli kullanmaktadır. Bu model, `turkish-nlp-suite` tarafından Hugging Face üzerinde sunulmaktadır.
-    Modeli kurmanın birkaç yolu vardır:
+    Modeli kurmanın en güvenilir yolu, doğrudan Hugging Face üzerinden `.whl` dosyasını `pip` kullanarak yüklemektir. Bu yöntem, `python -m spacy download` komutunun bu spesifik transformer modeli için bazen yaşattığı uyumluluk sorunlarını aşmanızı sağlar.
 
-    *   **Doğrudan İndirme (spaCy v3.0+ ile önerilen yöntem):**
-        spaCy'nin kendi indirme komutunu kullanabilirsiniz. Bu genellikle en güncel uyumlu sürümü alır:
-        ```bash
-        python -m spacy download tr_core_news_trf
-        ```
-
-    *   **Yerel `.whl` Dosyasından Kurulum (Belirli bir sürüm veya alternatif kaynak için):
-        Modeli doğrudan `.whl` dosyası olarak indirip kurabilirsiniz. Bu, özellikle belirli bir versiyona ihtiyaç duyulduğunda veya `spacy download` komutuyla sorun yaşanırsa kullanışlıdır.
-        `tr_core_news_trf` modelinin `.whl` dosyasını aşağıdaki adresten indirebilirsiniz:
-        [https://huggingface.co/turkish-nlp-suite/tr_core_news_trf/blob/main/tr_core_news_trf-1.0-py3-none-any.whl](https://huggingface.co/turkish-nlp-suite/tr_core_news_trf/blob/main/tr_core_news_trf-1.0-py3-none-any.whl)
-
-        İndirdikten sonra, `.whl` dosyasının bulunduğu dizinde veya tam yolunu belirterek pip ile kurun:
-        ```bash
-        pip install tr_core_news_trf-1.0-py3-none-any.whl 
-        # veya tam yoluyla: pip install path/to/your/tr_core_news_trf-1.0-py3-none-any.whl
-        ```
+    `tr_core_news_trf` modelini kurmak için aşağıdaki komutu kullanabilirsiniz:
+    ```bash
+    pip install https://huggingface.co/turkish-nlp-suite/tr_core_news_trf/resolve/main/tr_core_news_trf-1.0-py3-none-any.whl
+    ```
+    Bu komut, modeli doğrudan belirtilen URL'den indirip Python ortamınıza kuracaktır.
         **Not:** `.whl` dosyaları genellikle büyük boyutlu olabilir. Bu dosyaları Git reponuzda tutmak yerine, yukarıdaki gibi bir indirme linki veya talimatı sağlamak daha iyi bir pratiktir. `.gitignore` dosyanıza `*.whl` eklenerek bu dosyaların yanlışlıkla repoya eklenmesi engellenebilir.
 
 ## Kullanım
