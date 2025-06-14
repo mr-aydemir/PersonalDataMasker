@@ -4,6 +4,10 @@
 
 Bu proje, Türkçe metinlerde bulunan kişisel ve hassas verileri otomatik olarak tespit edip maskelemek amacıyla geliştirilmiştir. Temel hedef, gizliliği korumak ve veri güvenliğini artırmaktır. Özellikle Türkçe dilinin yapısal özelliklerine ve yaygın kişisel veri formatlarına uygun çözümler sunmayı amaçlar.
 
+## Proje Kapsamı ve Hedefleri
+
+Proje, temel olarak bir Python kütüphanesi olarak tasarlanmış olup, aynı zamanda bu işlevselliği modern bir web API'si üzerinden sunar. Bu sayede, geliştiriciler FastAPI tabanlı API arayüzü üzerinden kişisel veri maskeleme işlemlerini kolayca gerçekleştirebilirler.
+
 ## Kapsam
 
 Proje, aşağıdaki türdeki kişisel verileri maskeleyebilmektedir:
@@ -26,7 +30,10 @@ Proje, aşağıdaki türdeki kişisel verileri maskeleyebilmektedir:
 *   **Python:** Ana programlama dili.
 *   **spaCy:** Doğal Dil İşleme (NLP) görevleri, özellikle Adlandırılmış Varlık Tanıma (NER) için kullanılır. `tr_core_news_trf` gibi Türkçe'ye özel Transformer tabanlı modeller tercih edilmiştir.
 *   **Düzenli İfadeler (Regex):** Yapısal olarak tanımlanabilen IBAN, T.C. Kimlik No, telefon numarası gibi verilerin tespiti için kullanılır.
+*   **FastAPI:** Modern, hızlı ve esnek bir web API'si oluşturmak için kullanılır.
 
 ## Hedef Kitle
 
-Bu proje, metin verileriyle çalışan ve bu veriler içindeki kişisel bilgileri koruma altına almak isteyen geliştiriciler, veri analistleri ve araştırmacılar için tasarlanmıştır.
+Bu proje, metin verileriyle çalışan ve bu veriler içindeki kişisel bilgileri koruma altına almak isteyen geliştiriciler, veri analistleri ve araştırmacılar için tasarlanmıştır. Özellikle:
+
+*   **Geliştiriciler:** Kendi uygulamalarına veri maskeleme özelliği entegre etmek isteyen yazılım geliştiricileri (hem Python kütüphanesi hem de REST API aracılığıyla).

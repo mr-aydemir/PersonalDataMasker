@@ -3,3 +3,7 @@ spacy>=3.4.2,<3.5.0
 
 # İleride IBAN gibi standart numaraları doğrulamak/işlemek için gerekebilir
 # stdnum
+
+# API için
+fastapi>=0.95.0,<1.0.0
+uvicorn[standard]>=0.22.0,<0.23.0

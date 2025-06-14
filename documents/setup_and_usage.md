@@ -95,3 +95,45 @@ Kullanılan spaCy modelinin hangi varlık türlerini (entity labels) tanıyabild
 python explore_model_entities.py
 ```
 Bu, modelin yeteneklerini anlamanıza yardımcı olacaktır.
+
+## API Kullanımı
+
+Proje, maskeleme işlevselliğini bir REST API üzerinden de sunmaktadır. API, FastAPI kullanılarak oluşturulmuştur.
+
+### 1. API Bağımlılıklarını Yükleme
+
+Eğer daha önce yapmadıysanız, `requirements.txt` dosyasındaki tüm bağımlılıkları yükleyin. Bu komut, `fastapi` ve `uvicorn` gibi API için gerekli kütüphaneleri de kuracaktır.
+
+```bash
+pip install -r requirements.txt
+```
+
+### 2. API Sunucusunu Başlatma
+
+Proje ana dizinindeyken terminalde aşağıdaki komutu çalıştırarak API sunucusunu başlatın:
+
+```bash
+uvicorn api:app --reload
+```
+
+*   `uvicorn`: ASGI sunucusudur.
+*   `api:app`: `api.py` dosyasındaki `app` adlı FastAPI örneğini işaret eder.
+*   `--reload`: Kodda değişiklik yaptığınızda sunucunun otomatik olarak yeniden başlatılmasını sağlar.
+
+Sunucu başarıyla başladığında, terminalde `http://127.0.0.1:8000` adresinde çalıştığına dair bir mesaj göreceksiniz.
+
+### 3. API'yi Test Etme (Swagger UI ile)
+
+FastAPI, otomatik olarak interaktif bir API dokümantasyonu (Swagger UI) oluşturur. Bu arayüzü kullanarak API'yi kolayca test edebilirsiniz.
+
+1.  API sunucusu çalışırken, web tarayıcınızı açın ve şu adrese gidin: **[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)**
+2.  Açılan sayfada `/mask` ve `/health` endpoint'lerini göreceksiniz.
+3.  `/mask` endpoint'ini genişletin ve **"Try it out"** butonuna tıklayın.
+4.  **"Request body"** alanına, maskelemek istediğiniz metni JSON formatında girin. Örneğin:
+    ```json
+    {
+      "text": "ALİ ŞANLI yarın İstanbul'a gidecek. IBAN'ı TR123456789012345678901234."
+    }
+    ```
+5.  **"Execute"** butonuna tıklayın.
+6.  Aşağıdaki **"Responses"** bölümünde API'den dönen orijinal ve maskelenmiş metni görebilirsiniz.

@@ -1,7 +1,17 @@
 # main.py
 from data_masker.masker import mask_text
+import spacy
 
 def main():
+    # spaCy modelini yükle (main.py için özel)
+    try:
+        nlp = spacy.load("tr_core_news_trf")
+        print("main.py: spaCy modeli 'tr_core_news_trf' başarıyla yüklendi.")
+    except OSError:
+        print("main.py: spaCy modeli 'tr_core_news_trf' bulunamadı. Lütfen 'python -m spacy download tr_core_news_trf' komutuyla indirin veya .whl dosyasını kurun.")
+        nlp = None
+        return # Model yoksa devam etme
+
     sample_text_with_pii = """
     Merhaba ELİF HANEDAN Hanım (Proje Yöneticisi),
     Toplantı için CEMİL FİDANLIGÜL Bey ile İstanbul'dan Ankara'ya 25 Aralık 2023 Pazartesi günü saat 09:00'da görüştünüz mü?
@@ -20,7 +30,7 @@ def main():
     print(sample_text_with_pii)
     print("\nMaskelenmiş Metin:")
     print("-------------------\n") # Ekstra bir satır boşluk
-    masked_text = mask_text(sample_text_with_pii)
+    masked_text = mask_text(sample_text_with_pii, nlp_model=nlp)
     print(masked_text)
 
 if __name__ == "__main__":

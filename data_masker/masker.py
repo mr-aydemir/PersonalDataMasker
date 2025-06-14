@@ -1,29 +1,17 @@
-# data_masker/masker.py
 import re
 from . import patterns
 from .patterns import TC_KIMLIK_NO_PATTERN, PHONE_NUMBER_PATTERN # .patterns olarak import ediyoruz çünkü aynı paketteyiz
 import spacy
 
-# spaCy Türkçe modelini yüklemeye çalışalım
-NLP = None
-MODEL_NAME = "tr_core_news_trf" # Kullandığımız modelin adı
-try:
-    NLP = spacy.load(MODEL_NAME)
-    print(f"'{MODEL_NAME}' spaCy modeli başarıyla yüklendi.")
-except OSError:
-    print(f"UYARI: '{MODEL_NAME}' spaCy modeli yüklenemedi.")
-    print("Lütfen modeli doğru şekilde kurduğunuzdan emin olun (örn: pip install dosya_adi.whl).")
-    print("İsim/soyisim maskeleme özelliği çalışmayacaktır.")
-
-def mask_names_with_spacy(text: str) -> str:
+def mask_names_with_spacy(text: str, nlp_model) -> str:
     """
     Metindeki kişi adlarını (PER) spaCy kullanarak maskeler.
     """
-    if NLP is None:
+    if nlp_model is None:
         print("DEBUG: NLP modeli yüklenemedi, isim maskeleme atlanıyor.")
         return text 
 
-    doc = NLP(text)
+    doc = nlp_model(text)
     
     print("\n--- spaCy Varlık Tespiti (DEBUG) ---")
     if not doc.ents:
@@ -80,7 +68,7 @@ def mask_names_with_spacy(text: str) -> str:
         
     return "".join(new_text_parts)
 
-def mask_text(text: str) -> str:
+def mask_text(text: str, nlp_model=None) -> str:
     """
     Metindeki bilinen hassas verileri maskeler.
     Önce IBAN'ları, sonra isimleri maskeler.
@@ -97,7 +85,12 @@ def mask_text(text: str) -> str:
     # Telefon Numarası Maskeleme
     text = PHONE_NUMBER_PATTERN.sub(star_mask, text)
 
-    # İsim/Soyisim Maskeleme (spaCy ile)
-    text = mask_names_with_spacy(text)
+    # İsim/Soyisim ve diğer spaCy varlıklarını Maskeleme
+    if nlp_model:
+        text = mask_names_with_spacy(text, nlp_model)
+    else:
+        # Eğer API dışından (örn: main.py) model yüklenmeden çağrılırsa diye bir uyarı eklenebilir
+        # veya burada varsayılan bir model yüklenebilir. Şimdilik geçiyoruz.
+        print("Uyarı: mask_text fonksiyonuna nlp_model sağlanmadı. spaCy tabanlı maskeleme atlanacak.")
 
     return text
