@@ -1,46 +1,67 @@
-# Kişisel Veri Maskeleme Projesi
+# Türkçe Kişisel Veri Maskeleyici
 
-Bu proje, metinlerdeki kişisel ve hassas verileri (isim, soyisim, IBAN vb.) maskelemek için geliştirilmiştir.
-Proje, Türkçe metinlerle uyumlu çalışacak şekilde tasarlanmıştır.
+Bu proje, Türkçe metinlerde bulunan kişisel ve hassas verileri (isimler, IBAN, T.C. Kimlik Numaraları, telefon numaraları, konumlar, organizasyonlar vb.) otomatik olarak tespit edip maskelemek amacıyla geliştirilmiştir. Proje, hem bir Python kütüphanesi olarak hem de bir REST API üzerinden kullanılabilir.
+
+## Temel Özellikler
+
+*   **Kapsamlı Veri Tespiti:** Kişi adları, IBAN, T.C. Kimlik No, telefon numaraları, coğrafi konumlar (GPE), organizasyon adları (ORG), tarihler (DATE), para miktarları (MONEY), zaman ifadeleri (TIME) gibi birçok farklı PII türünü tanır.
+*   **Hibrit Yaklaşım:** Yapısal veriler (IBAN, T.C. Kimlik No vb.) için düzenli ifadeler (Regex), daha karmaşık ve bağlama duyarlı veriler (isimler, organizasyonlar vb.) için ise son teknoloji Transformer tabanlı spaCy modelleri (`tr_core_news_trf`) kullanılır.
+*   **Esnek Maskeleme:** Kişi adları için baş ve son harfleri koruyarak arayı yıldızlama, diğer PII türleri için tam yıldızlama gibi farklı maskeleme stratejileri uygular.
+*   **API Desteği:** Maskeleme işlevselliğini `FastAPI` tabanlı bir REST API üzerinden sunar. Bu sayede farklı platform ve uygulamalarla kolay entegrasyon sağlar.
+*   **Türkçe Odaklı:** Özellikle Türkçe dilinin yapısal özelliklerine ve yaygın kişisel veri formatlarına uygun olarak tasarlanmıştır.
 
 ## Kurulum
 
-1.  **Sanal Ortam Oluşturma (Önerilir):**
+1.  **Sanal Ortam Oluşturun ve Aktive Edin (Şiddetle Önerilir):**
     ```bash
     python -m venv .venv
     ```
-    Ardından sanal ortamı aktive edin:
-    *   Windows: `.\.venv\Scripts\activate`
+    Aktive etmek için:
+    *   Windows (PowerShell): `.\.venv\Scripts\Activate.ps1`
+    *   Windows (CMD): `.\.venv\Scripts\activate.bat`
     *   macOS/Linux: `source .venv/bin/activate`
 
-2.  **Gerekli Kütüphanelerin Yüklenmesi:**
+2.  **Bağımlılıkları Yükleyin:**
     ```bash
     pip install -r requirements.txt
     ```
+    Bu komut, `spacy`, `spacy-transformers`, `torch`, `fastapi`, `uvicorn` gibi gerekli tüm kütüphaneleri kuracaktır.
 
-3.  **spaCy Türkçe Modelinin İndirilmesi:**
-    Hassas bilgileri (özellikle kişi adları) tanımak için spaCy kütüphanesini ve Türkçe modelini kullanacağız.
-    Aşağıdaki komutla `tr_core_news_sm` (küçük) modelini indirebilirsiniz:
-    ```bash
-    python -m spacy download tr_core_news_sm
-    ```
-    Daha yüksek doğruluk için `tr_core_news_md` (orta) veya `tr_core_news_lg` (büyük) modellerini de tercih edebilirsiniz. Bu modeller daha fazla disk alanı kaplar ve daha yavaş çalışabilir. Model seçimi projenin ilerleyen aşamalarında ihtiyaca göre güncellenebilir.
+3.  **spaCy Türkçe Modelini İndirin (`tr_core_news_trf`):**
+    Proje, en iyi sonuçlar için `tr_core_news_trf` modelini kullanır. Modeli indirmenin iki yolu vardır:
+    *   **spaCy CLI ile (Önerilen):**
+        ```bash
+        python -m spacy download tr_core_news_trf
+        ```
+    *   **`.whl` Dosyası ile (Alternatif):**
+        Modeli [Hugging Face (turkish-nlp-suite)](https://huggingface.co/turkish-nlp-suite/tr_core_news_trf/blob/main/tr_core_news_trf-1.0-py3-none-any.whl) adresinden `.whl` dosyası olarak indirip kurabilirsiniz:
+        ```bash
+        pip install /path/to/downloaded/tr_core_news_trf-1.0-py3-none-any.whl
+        ```
 
 ## Kullanım
 
-Projenin ana betiği `main.py` dosyası olacaktır.
-```bash
-python main.py
-```
-(Kullanım detayları proje geliştikçe eklenecektir.)
+Proje iki ana şekilde kullanılabilir:
 
-## Proje Yapısı (Önerilen)
+### 1. Python Kütüphanesi Olarak
 
--   `data_masker/`: Ana maskeleme mantığını içeren modüller.
-    -   `masker.py`: Maskeleme fonksiyonları.
-    -   `patterns.py`: Regex desenleri ve hassas veri tanımları.
-    -   `utils.py`: Yardımcı fonksiyonlar.
--   `tests/`: Birim testler.
--   `main.py`: Projenin çalıştırılacağı ana betik.
--   `requirements.txt`: Gerekli Python kütüphaneleri.
--   `README.md`: Bu dosya.
+`data_masker.masker` modülündeki `mask_text` fonksiyonunu doğrudan Python kodunuzda kullanabilirsiniz. `main.py` dosyası bu kullanım için bir örnek içerir.
+
+### 2. REST API Olarak
+
+Proje, `FastAPI` ile geliştirilmiş bir REST API sunar.
+
+*   **API Sunucusunu Başlatma:**
+    ```bash
+    uvicorn api:app --reload
+    ```
+*   **API Dokümantasyonu (Swagger UI):**
+    Sunucu çalışırken `http://127.0.0.1:8000/docs` adresinden interaktif API dokümantasyonuna erişebilir ve API'yi test edebilirsiniz.
+
+## Detaylı Dokümantasyon
+
+Projenin genel bakışı, kurulum detayları, kullanım senaryoları ve maskelenen veri türleri hakkında daha ayrıntılı bilgi için lütfen [`documents`](./documents) klasöründeki belgelere göz atın.
+
+*   [`project_overview.md`](./documents/project_overview.md)
+*   [`setup_and_usage.md`](./documents/setup_and_usage.md)
+*   [`masked_data_types.md`](./documents/masked_data_types.md)
