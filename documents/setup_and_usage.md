@@ -41,6 +41,7 @@ Bu belge, Türkçe Kişisel Veri Maskeleyici projesinin nasıl kurulacağını v
     pip install -r requirements.txt
     ```
     Bu komut, `spaCy`, `spacy-transformers`, `torch` gibi gerekli tüm kütüphaneleri kuracaktır.
+    **Not:** `requirements.txt` dosyasında belirtilen `spaCy` sürümü (`spacy>=3.4.2,<3.5.0`), kullanılan `tr_core_news_trf` modelinin [Hugging Face sayfasında](https://huggingface.co/turkish-nlp-suite/tr_core_news_trf) belirtilen uyumluluk gereksinimlerine göre seçilmiştir. Modelin doğru çalışması için bu sürüm aralığına dikkat ediniz.
 
 4.  **spaCy Türkçe Modelini İndirin:**
     Proje, çeşitli denemeler sonucunda en iyi performansı veren `tr_core_news_trf` adlı Transformer tabanlı bir Türkçe spaCy modeli kullanmaktadır. Bu model, `turkish-nlp-suite` tarafından Hugging Face üzerinde sunulmaktadır.

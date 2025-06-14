@@ -26,6 +26,7 @@ Bu proje, Türkçe metinlerde bulunan kişisel ve hassas verileri (isimler, IBAN
     pip install -r requirements.txt
     ```
     Bu komut, `spacy`, `spacy-transformers`, `torch`, `fastapi`, `uvicorn` gibi gerekli tüm kütüphaneleri kuracaktır.
+    **Not:** `requirements.txt` dosyasında belirtilen `spaCy` sürümü (`spacy>=3.4.2,<3.5.0`), kullanılan `tr_core_news_trf` modelinin [Hugging Face sayfasında](https://huggingface.co/turkish-nlp-suite/tr_core_news_trf) belirtilen uyumluluk gereksinimlerine göre seçilmiştir. Modelin doğru çalışması için bu sürüm aralığına dikkat ediniz.
 
 3.  **spaCy Türkçe Modelini İndirin (`tr_core_news_trf`):**
     Proje, en iyi sonuçlar için `tr_core_news_trf` Transformer tabanlı Türkçe spaCy modelini kullanır. Bu ve benzeri Türkçe NLP modelleri, genellikle [turkish-nlp-suite tarafından Hugging Face üzerinde](https://huggingface.co/turkish-nlp-suite) yayınlanmaktadır.
