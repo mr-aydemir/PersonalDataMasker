@@ -1,8 +1,12 @@
 # Core NLP library
 spacy>=3.4.2,<3.5.0
+numpy>=1.20.0,<1.25.0 # NumPy versiyonu uyumluluk için eklendi
+#spacy-transformers
 
-# İleride IBAN gibi standart numaraları doğrulamak/işlemek için gerekebilir
-# stdnum
+# Transformer modelleri için gereklidir
+#torch
+
+
 
 # API için
 fastapi>=0.95.0,<1.0.0
